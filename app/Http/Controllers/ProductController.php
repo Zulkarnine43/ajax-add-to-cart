@@ -12,6 +12,33 @@ class ProductController extends Controller
      *
      * @return response()
      */
+
+     public function productAddForm(){
+         return view('productsForm');
+     }
+
+     public function product_add_db(Request $request){
+
+        $Img=$request->file('image');
+        if($Img){
+            $currentTimeinSeconds = time();  
+            $imageName =  $currentTimeinSeconds.'.'.$Img->getClientOriginalName();
+            $directory = 'images/';
+            $imageUrl = $directory.$imageName;
+            $Img->move($directory, $imageName);
+        }else{
+            $imageUrl="null";
+        }
+       $product=new Product();
+       $product->name=$request->name;
+       $product->description=$request->description;
+       $product->image=$imageUrl;
+       $product->price=$request->price;
+       $product->save();
+       return Product::all();
+     }
+
+
     public function index()
     {
         $products = Product::all();

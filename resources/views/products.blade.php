@@ -12,6 +12,7 @@
                     <p>{{ $product->description }}</p>
                     <p><strong>Price: </strong> {{ $product->price }}$</p>
                     <p class="btn-holder"><a href="{{ route('add.to.cart', $product->id) }}" class="btn btn-warning btn-block text-center" role="button">Add to cart</a> </p>
+                    <p class="btn-holder"><a href="" onclick="add_cart({{$product->id}})" class="btn btn-warning btn-block text-center" role="button">Add to cart</a> </p>
                 </div>
             </div>
         </div>
@@ -19,3 +20,17 @@
 </div>
     
 @endsection
+
+<script>
+    function add_cart(id){
+            //   alert(id);
+              $.ajax({
+                  type:"GET",
+                  dataType:"json",
+                  url:"add-to-cart/"+id,
+                  success:function(data){
+                        alert('add cart sucessfully');
+                  }
+              });
+    }
+</script>
