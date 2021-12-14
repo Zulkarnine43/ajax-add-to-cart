@@ -38,6 +38,43 @@ class ProductController extends Controller
        return Product::all();
      }
 
+     public function product_all(){
+         $products=Product::all();
+         return response()->json(
+            $products
+         );
+     }
+
+     public function product_edit($id){
+           $product=Product::findOrFail($id);
+           return response()->json($product);
+     }
+
+     public function product_Update_db(Request $request){
+        $product=Product::where('id',$request->id)->first();
+    if( $product){
+        $Img=$request->file('image');
+        if($Img){
+            $currentTimeinSeconds = time();  
+            $imageName =  $currentTimeinSeconds.'.'.$Img->getClientOriginalName();
+            $directory = 'images/';
+            $imageUrl = $directory.$imageName;
+            $Img->move($directory, $imageName);
+        }
+        
+        $product->name=$request->name;
+        $product->description=$request->description;
+        $product->image=$imageUrl;
+        $product->price=$request->price;
+        $product->save();
+       
+  }
+  $product=Product::all();
+  return response()->json($product);
+}
+
+
+
 
     public function index()
     {

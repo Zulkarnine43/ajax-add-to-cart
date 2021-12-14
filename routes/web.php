@@ -16,6 +16,10 @@ use App\Http\Controllers\ProductController;
 
 Route::get('/productAddForm', [ProductController::class, 'productAddForm']);  
 Route::post('product_add_db', [ProductController::class, 'product_add_db']);  
+Route::get('product/all', [ProductController::class, 'product_all']);
+Route::get('product/edit/{id}', [ProductController::class, 'product_edit']); 
+
+Route::post('product_Update_db', [ProductController::class, 'product_Update_db']); 
 
 Route::get('/', [ProductController::class, 'index']);  
 Route::get('cart', [ProductController::class, 'cart'])->name('cart');
